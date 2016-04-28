@@ -6,6 +6,11 @@ import org.springframework.http.MediaType;
 import io.datacleansing.common.rest.representations.ResourceCollection;
 
 public class RESTConstants {
+	public static final String TAGS_URI = "/tags";
+
+	public static final String TAG_URI = "/{tag}";
+	public static final String DATA_URI = "/data";
+
 	public static final String REQUEST_PARAM_START = "start";
 	public static final String REQUEST_PARAM_LIMIT = "limit";
 	public static final String REQUEST_PARAM_SORTBY = "sortBy";

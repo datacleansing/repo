@@ -2,41 +2,61 @@ package io.datacleansing.repo.representations;
 
 import java.util.Set;
 
+import io.datacleansing.common.*;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
-@DynamoDBTable(tableName="DataCleansing_model")
+@DynamoDBTable(tableName="dch_model")
 public class ModelMetadata {
-	
-	private Integer id;
+
+	private String id;
+	private String uri;
 	private String name;
+	private String description;
 	private String domain;
 	private String datatype;
 	private String locale;
 	private String timestamp;
-	private Set<String> tags;
+	private Set<String> keywords;
 
-    public ModelMetadata(Integer id, String name, String domain, String datatype, String locale, String timestamp, Set<String> tags) {
+  public ModelMetadata(
+		String uri,
+		String name,
+		String description,
+		String domain,
+		String datatype,
+		String locale,
+		String timestamp,
+		Set<String> keywords) {
 		super();
-		this.id = id;
+		this.uri = uri;
 		this.name = name;
+		this.description = description;
 		this.domain = domain;
 		this.datatype = datatype;
 		this.locale = locale;
 		this.timestamp = timestamp;
-		this.tags = tags;
+		this.keywords = keywords;
 	}
-    
-	@DynamoDBHashKey(attributeName="Id")  
-	public Integer getId() {
+
+	@DynamoDBHashKey(attributeName="Id")
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-    @DynamoDBAttribute(attributeName="Name") 
+  @DynamoDBAttribute(attributeName="Uri")
+	public String getUri() {
+		return uri;
+	}
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+  @DynamoDBAttribute(attributeName="Name")
 	public String getName() {
 		return name;
 	}
@@ -44,7 +64,15 @@ public class ModelMetadata {
 		this.name = name;
 	}
 
-    @DynamoDBAttribute(attributeName="Domain") 
+  @DynamoDBAttribute(attributeName="Description")
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+  @DynamoDBAttribute(attributeName="Domain")
 	public String getDomain() {
 		return domain;
 	}
@@ -52,7 +80,7 @@ public class ModelMetadata {
 		this.domain = domain;
 	}
 
-    @DynamoDBAttribute(attributeName="Datatype") 
+  @DynamoDBAttribute(attributeName="Datatype")
 	public String getDatatype() {
 		return datatype;
 	}
@@ -60,30 +88,28 @@ public class ModelMetadata {
 		this.datatype = datatype;
 	}
 
-    @DynamoDBAttribute(attributeName="Locale") 
+  @DynamoDBAttribute(attributeName="Locale")
 	public String getLocale() {
 		return locale;
 	}
 	public void setLocale(String locale) {
 		this.locale = locale;
 	}
-	
 
-    @DynamoDBAttribute(attributeName="Timestamp") 
+  @DynamoDBAttribute(attributeName="Timestamp")
 	public String getTimestamp() {
 		return timestamp;
 	}
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
-	
 
-    @DynamoDBAttribute(attributeName="Tags") 
-	public Set<String> getTags() {
-		return tags;
+  @DynamoDBAttribute(attributeName="Keywords")
+	public Set<String> getKeywords() {
+		return keywords;
 	}
-	public void setTimestamp(Set<String> timestamp) {
-		this.tags = tags;
+	public void setKeywords(Set<String> timestamp) {
+		this.keywords = keywords;
 	}
-	
+
 }

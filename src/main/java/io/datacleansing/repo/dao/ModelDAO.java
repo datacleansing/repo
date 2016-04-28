@@ -18,25 +18,25 @@ public class ModelDAO {
 	AmazonDynamoDBClient client = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
 
 	DynamoDBMapper mapper = new DynamoDBMapper(client);
-	
+
 	public ModelMetadata getModel(String modelId) {
 //		ModelMetadata item = new ModelMetadata(0, "MockName", "CI", "ADDRESS", "ZHCN", "2015");
 //		mapper.save(item);
-		
+
 		return null;
 	}
 
 	public void deleteModel(String modelId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public QueryResult<ModelMetadata> query(QueryOptions options) {
 		QueryResult<ModelMetadata> result =new QueryResult<ModelMetadata>();
-		HashSet<String> tags = new HashSet<String>();
-		tags.add("tag1");
-		tags.add("tag2");
-		result.addResult(new ModelMetadata(0, "MockName", "CI", "ADDRESS", "ZHCN", "2015", tags));
+		HashSet<String> keywords = new HashSet<String>();
+		keywords.add("key1");
+		keywords.add("key2");
+		result.addResult(new ModelMetadata("0", "MockName", "Mock Description", "CI", "ADDRESS", "ZHCN", "2015", keywords));
 		return result;
 	}
 
