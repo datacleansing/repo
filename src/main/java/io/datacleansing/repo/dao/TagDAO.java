@@ -27,7 +27,7 @@ public class TagDAO {
 
 	}
 
-	public Tag update(String parentUri, String tag, String data) {
+	public Tag update(String parentUri, String tag, String dataUri) {
 		return null;
 	}
 

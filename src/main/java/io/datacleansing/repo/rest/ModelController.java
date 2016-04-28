@@ -180,12 +180,12 @@ public class ModelController {
 		return new ResponseEntity<ResourceCollection<Tag>>(collection, HttpStatus.OK);
 	}
 
-	@RequestMapping( value = MODEL_TAGS_URI, method = RequestMethod.POST )
+	@RequestMapping( value = MODEL_TAG_URI, method = RequestMethod.PUT )
 	public ResponseEntity<Tag> createModelTag(
 		@PathVariable String modelUri,
 		@PathVariable String tag,
-		@RequestBody String data) {
-		Tag modelTag = tagDAO.update(modelUri, tag, data);
+		@RequestBody String dataUri) {
+		Tag modelTag = tagDAO.update(modelUri, tag, dataUri);
 		return new ResponseEntity<Tag>(modelTag, HttpStatus.CREATED);
 	}
 
