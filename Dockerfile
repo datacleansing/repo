@@ -1,4 +1,4 @@
-FROM google/nodejs
+FROM qlik/gradle
 
 EXPOSE 8080
 
@@ -6,4 +6,4 @@ EXPOSE 8080
 COPY . /app/
 
 # Install dependencies.
-RUN npm --unsafe-perm install
+RUN gradle build
