@@ -1,6 +1,4 @@
-FROM qlik/gradle
-
-EXPOSE 8080
+FROM datacleansing/basejava
 
 # Copy application code.
 COPY . /app/
