@@ -6,14 +6,20 @@ import org.springframework.http.MediaType;
 import io.datacleansing.common.rest.representations.ResourceCollection;
 
 public class RESTConstants {
+	public static final String REPOSITORIES_URI = "/repository";
+	public static final String REPOSITORY_URI = REPOSITORIES_URI + "/{repoId}";
+	public static final String MODELS_URI = REPOSITORY_URI + "/models";
 	public static final String TAGS_URI = "/tags";
 
-	public static final String TAG_URI = "/{tag}";
+	public static final String TAG_URI = "/{tagId}";
 	public static final String DATA_URI = "/data";
 
 	public static final String REQUEST_PARAM_START = "start";
 	public static final String REQUEST_PARAM_LIMIT = "limit";
 	public static final String REQUEST_PARAM_SORTBY = "sortBy";
+	public static final String REQUEST_PARAM_PARENTURI = "parent";
+	public static final String REQUEST_PARAM_REPOSITORY = "repository";
+	public static final String REQUEST_PARAM_NAME = "name";
 	public static final String REQUEST_PARAM_FILTER = "filter";
 	public static final String APPLICATION_ZIP_VALUE = "application/zip";
 

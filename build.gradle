@@ -27,4 +27,8 @@ dependencies {
   //compile "org.springframework.cloud:spring-cloud-starter-consul-config:2.0.0.SAS-SNAPSHOT"
 
   compile "com.googlecode.json-simple:json-simple:1.1.1"
+  
+  bootRun {
+	  addResources = true
+  }
 }

@@ -1,42 +1,45 @@
 package io.datacleansing.repo.dao;
 
-import java.util.HashSet;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-
+import io.datacleansing.common.Constants;
 import io.datacleansing.common.query.QueryOptions;
 import io.datacleansing.common.query.QueryResult;
+import io.datacleansing.repo.Repository;
 import io.datacleansing.repo.representations.ModelMetadata;
 
 @Component
 public class ModelDAO {
+	@Autowired
+	Repository hubRepo;
 
-	AmazonDynamoDBClient client = new AmazonDynamoDBClient(new ProfileCredentialsProvider());
-
-	DynamoDBMapper mapper = new DynamoDBMapper(client);
-
-	public ModelMetadata getModel(String modelId) {
-//		ModelMetadata item = new ModelMetadata(0, "MockName", "CI", "ADDRESS", "ZHCN", "2015");
-//		mapper.save(item);
-
-		return null;
+	public ModelMetadata getModel(String repoId, String modelId) {
+		QueryOptions options = QueryOptions.builder().
+				hashKey(Constants.REPOSITORY, repoId).
+				rangeKey(Constants.ID, modelId).
+				paging(0, 1).
+				create();
+		QueryResult<ModelMetadata> result = query( options);
+		if(result.getCount() == 1)
+			return result.getResultList().get(0);
+		else
+			return null;
 	}
 
-	public void deleteModel(String modelId) {
-		// TODO Auto-generated method stub
+	public void deleteModel(ModelMetadata target) {
+        hubRepo.getMapper().delete(target);
+	}
 
+	public ModelMetadata updateModel(ModelMetadata model) {
+		hubRepo.getMapper().save(model);
+		return getModel(model.getRepository(), model.getId());
 	}
 
 	public QueryResult<ModelMetadata> query(QueryOptions options) {
-		QueryResult<ModelMetadata> result =new QueryResult<ModelMetadata>();
-		HashSet<String> keywords = new HashSet<String>();
-		keywords.add("key1");
-		keywords.add("key2");
-		result.addResult(new ModelMetadata("0", "MockName", "Mock Description", "CI", "ADDRESS", "ZHCN", "2015", keywords));
+		QueryResult<ModelMetadata> result = new QueryResult<ModelMetadata>(options);
+		result.setResultList(hubRepo.getMapper().query(
+				ModelMetadata.class, options.<ModelMetadata> outputQueryExpression()));
 		return result;
 	}
 
