@@ -6,20 +6,13 @@ import org.springframework.stereotype.Component;
 import io.datacleansing.common.Constants;
 import io.datacleansing.common.query.QueryOptions;
 import io.datacleansing.common.query.QueryResult;
-import io.datacleansing.common.rest.RESTConstants;
 import io.datacleansing.repo.Repository;
-import io.datacleansing.repo.representations.ModelMetadata;
 import io.datacleansing.repo.representations.Tag;
 
 @Component
 public class TagDAO {
 	@Autowired
 	Repository hubRepo;
-
-	public void deleteTag(String tagId) {
-        ModelMetadata updatedItem = hubRepo.getMapper().load(ModelMetadata.class, tagId, Utils.CONSISTENT_CONFIG);
-        hubRepo.getMapper().delete(updatedItem);
-	}
 
 	public Tag update(String resUri, String tag, String dataUri) {
 		Tag newTag = new Tag();

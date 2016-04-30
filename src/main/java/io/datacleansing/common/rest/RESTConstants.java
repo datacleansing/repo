@@ -6,6 +6,9 @@ import org.springframework.http.MediaType;
 import io.datacleansing.common.rest.representations.ResourceCollection;
 
 public class RESTConstants {
+
+	public static final String FILEUPLOADER_URI = "/fileUploader";
+	
 	public static final String REPOSITORIES_URI = "/repository";
 	public static final String REPOSITORY_URI = REPOSITORIES_URI + "/{repoId}";
 	public static final String MODELS_URI = REPOSITORY_URI + "/models";
