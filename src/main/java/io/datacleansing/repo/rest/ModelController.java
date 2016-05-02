@@ -77,7 +77,7 @@ public class ModelController {
 		return new ResponseEntity<ModelMetadata>(updatedModel, HttpStatus.CREATED);
 	}
 
-	@RequestMapping( method = RequestMethod.GET,
+	@RequestMapping( method = { RequestMethod.GET, RequestMethod.OPTIONS },
 			produces = {
 					ResourceCollection.MEDIA_TYPE_JSON_VALUE,
 					MediaType.APPLICATION_JSON_VALUE })
@@ -197,7 +197,7 @@ public class ModelController {
 		return new ResponseEntity<Tag>(modelTag, HttpStatus.CREATED);
 	}
 
-	@RequestMapping( value = MODEL_TAG_URI, method = RequestMethod.GET )
+	@RequestMapping( value = MODEL_TAG_URI, method = { RequestMethod.GET, RequestMethod.OPTIONS} )
 	public ResponseEntity<Tag> getModelTag(
 			@PathVariable String repoId,
 			@PathVariable String modelId,
