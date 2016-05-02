@@ -21,12 +21,12 @@ import io.datacleansing.common.query.QueryOptions;
 import io.datacleansing.common.query.QueryResult;
 import io.datacleansing.common.Constants;
 import io.datacleansing.common.rest.RESTConstants;
+import io.datacleansing.common.rest.Utils;
 import io.datacleansing.common.rest.representations.CollectionLinksBuilder;
 import io.datacleansing.common.rest.representations.ResourceCollection;
 import io.datacleansing.common.rest.representations.ResourceCollectionBuilder;
 import io.datacleansing.repo.dao.ModelDAO;
 import io.datacleansing.repo.dao.TagDAO;
-import io.datacleansing.repo.dao.Utils;
 import io.datacleansing.repo.representations.ModelMetadata;
 import io.datacleansing.repo.representations.Tag;
 
@@ -46,34 +46,13 @@ public class ModelController {
 	@Autowired
 	TagDAO tagDAO;
 
-	public final <T> ResourceCollection<T> buildCollection(
-			QueryOptions options,
-			List<T> items,
-			int count,
-			String collectionName,
-			String acceptType,
-			String uri) {
-		PagingParameters paging = options.getPaging();
-		long start = (paging == null ? PagingParameters.DEFAULT_PAGING_START : paging.getStart());
-		int limit = (paging == null ? PagingParameters.DEFAULT_PAGING_LIMIT : paging.getLimit());
-
-		if (limit > count) {
-			limit = count;
-		}
-		ResourceCollection<T> collection = ResourceCollectionBuilder.<T> builder().accepts(acceptType)
-				.name(collectionName).start(start).limit(limit).count(count).items(items)
-				.links(CollectionLinksBuilder.newInstance(uri, options).paging(count).buildLinks()).create();
-
-		return collection;
-	}
-
 	@RequestMapping( method = RequestMethod.POST )
 	public ResponseEntity<ModelMetadata> createModel(
 		HttpServletRequest request,
 		@PathVariable String repoId,
 		@RequestBody ModelMetadata model) {
 		model.setRepository(repoId);
-		ModelMetadata updatedModel = modelDAO.updateModel(model);
+		ModelMetadata updatedModel = modelDAO.update(model);
 		return new ResponseEntity<ModelMetadata>(updatedModel, HttpStatus.CREATED);
 	}
 
@@ -109,7 +88,7 @@ public class ModelController {
 				filter(RESTConstants.REQUEST_PARAM_FILTER, filter).
 				create();
 		QueryResult<ModelMetadata> result = modelDAO.query(options);
-		ResourceCollection<ModelMetadata> collection = buildCollection(
+		ResourceCollection<ModelMetadata> collection = Utils.buildCollection(
 				options,
 				result.getResultList(),
 				result.getCount(),
@@ -126,7 +105,7 @@ public class ModelController {
 			@PathVariable String modelId,
 			HttpServletRequest request) {
 
-		ModelMetadata model = modelDAO.getModel(repoId, modelId);
+		ModelMetadata model = modelDAO.get(repoId, modelId);
 		return new ResponseEntity<ModelMetadata>(model, HttpStatus.OK);
 	}
 
@@ -135,11 +114,11 @@ public class ModelController {
 			HttpServletRequest request,
 			@PathVariable String repoId,
 			@PathVariable String modelId) {
-		ModelMetadata model = modelDAO.getModel(repoId, modelId);
+		ModelMetadata model = modelDAO.get(repoId, modelId);
 		if(model == null){
 			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 		}else{
-			modelDAO.deleteModel(model);
+			modelDAO.delete(model);
 			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		}
 	}
@@ -169,7 +148,7 @@ public class ModelController {
 				paging(start, limit).
 				create();
 		QueryResult<Tag> result = tagDAO.query( options);
-		ResourceCollection<Tag> collection = buildCollection(
+		ResourceCollection<Tag> collection = Utils.buildCollection(
 				options,
 				result.getResultList(),
 				result.getCount(),

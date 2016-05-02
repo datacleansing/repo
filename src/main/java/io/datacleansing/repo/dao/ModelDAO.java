@@ -6,15 +6,15 @@ import org.springframework.stereotype.Component;
 import io.datacleansing.common.Constants;
 import io.datacleansing.common.query.QueryOptions;
 import io.datacleansing.common.query.QueryResult;
-import io.datacleansing.repo.Repository;
+import io.datacleansing.DataStore;
 import io.datacleansing.repo.representations.ModelMetadata;
 
 @Component
 public class ModelDAO {
 	@Autowired
-	Repository hubRepo;
+	DataStore hubRepo;
 
-	public ModelMetadata getModel(String repoId, String modelId) {
+	public ModelMetadata get(String repoId, String modelId) {
 		QueryOptions options = QueryOptions.builder().
 				hashKey(Constants.REPOSITORY, repoId).
 				rangeKey(Constants.ID, modelId).
@@ -27,13 +27,13 @@ public class ModelDAO {
 			return null;
 	}
 
-	public void deleteModel(ModelMetadata target) {
+	public void delete(ModelMetadata target) {
         hubRepo.getMapper().delete(target);
 	}
 
-	public ModelMetadata updateModel(ModelMetadata model) {
+	public ModelMetadata update(ModelMetadata model) {
 		hubRepo.getMapper().save(model);
-		return getModel(model.getRepository(), model.getId());
+		return get(model.getRepository(), model.getId());
 	}
 
 	public QueryResult<ModelMetadata> query(QueryOptions options) {

@@ -8,11 +8,16 @@ import io.datacleansing.common.rest.representations.ResourceCollection;
 public class RESTConstants {
 
 	public static final String FILEUPLOADER_URI = "/fileUploader";
+
+	public static final String TAGS_URI = "/tags";
 	
 	public static final String REPOSITORIES_URI = "/repository";
 	public static final String REPOSITORY_URI = REPOSITORIES_URI + "/{repoId}";
 	public static final String MODELS_URI = REPOSITORY_URI + "/models";
-	public static final String TAGS_URI = "/tags";
+
+	
+	public static final String SERVICES_URI = "/repository";
+	public static final String SERVICE_REPO_URI = SERVICES_URI + "/{repoId}";
 
 	public static final String TAG_URI = "/{tagId}";
 	public static final String DATA_URI = "/data";

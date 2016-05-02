@@ -6,13 +6,13 @@ import org.springframework.stereotype.Component;
 import io.datacleansing.common.Constants;
 import io.datacleansing.common.query.QueryOptions;
 import io.datacleansing.common.query.QueryResult;
-import io.datacleansing.repo.Repository;
+import io.datacleansing.DataStore;
 import io.datacleansing.repo.representations.Tag;
 
 @Component
 public class TagDAO {
 	@Autowired
-	Repository hubRepo;
+	DataStore hubRepo;
 
 	public Tag update(String resUri, String tag, String dataUri) {
 		Tag newTag = new Tag();

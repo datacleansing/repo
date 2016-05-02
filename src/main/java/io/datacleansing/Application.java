@@ -1,4 +1,4 @@
-package io.datacleansing.repo;
+package io.datacleansing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

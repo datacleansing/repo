@@ -1,4 +1,4 @@
-package io.datacleansing.repo;
+package io.datacleansing;
 
 import javax.annotation.PostConstruct;
 
@@ -11,7 +11,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 @Component
-public class Repository {
+public class DataStore {
 
 	private AmazonDynamoDBClient client;
 	private DynamoDBMapper mapper;
