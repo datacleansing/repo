@@ -1,4 +1,4 @@
-package io.datacleansing.service.representations;
+package io.datacleansing.repo.representations;
 
 import io.datacleansing.common.Constants;
 
@@ -9,9 +9,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
-@DynamoDBTable(tableName="dch_service")
-public class Service {
-	private String jobURI;
+@DynamoDBTable(tableName="dch_modeljob")
+public class ModelJob extends RepoMetadata{
+	private String data;
 	private String repository;
 	private String id;
 	private Boolean isPrivate;
@@ -38,14 +38,6 @@ public class Service {
 		this.id = id;
 	}
 
-	@DynamoDBAttribute(attributeName="JobURI")
-	public String getJobURI() {
-		return jobURI;
-	}
-	public void setJobURI(String jobURI) {
-		this.jobURI = jobURI;
-	}
-	
 	@DynamoDBAttribute(attributeName="IsPrivate")
 	public Boolean getIsPrivate() {
 		return isPrivate;
@@ -102,4 +94,14 @@ public class Service {
 		this.keywords = keywords;
 	}
 
+	  @DynamoDBAttribute(attributeName="Data")
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+	
+	
 }

@@ -7,10 +7,8 @@ import java.util.Set;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
-@DynamoDBTable(tableName="dch_model")
-public class ModelMetadata extends RepoMetadata{
+public class RepoMetadata {
 	private String repository;
 	private String id;
 	private Boolean isPrivate;
@@ -92,4 +90,5 @@ public class ModelMetadata extends RepoMetadata{
 	public void setKeywords(Set<String> keywords) {
 		this.keywords = keywords;
 	}
+
 }

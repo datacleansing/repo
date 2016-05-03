@@ -181,7 +181,7 @@ public class ModelController {
 			@PathVariable String repoId,
 			@PathVariable String modelId,
 			@PathVariable String tagId ) {
-		Tag modelTag = tagDAO.get(Utils.generateURI(repoId, modelId), tagId);		
+		Tag modelTag = tagDAO.get(repoId, modelId, tagId);		
 		return new ResponseEntity<Tag>(modelTag, HttpStatus.OK);
 	}
 }

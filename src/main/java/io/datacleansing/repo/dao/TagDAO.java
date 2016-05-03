@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import io.datacleansing.common.Constants;
 import io.datacleansing.common.query.QueryOptions;
 import io.datacleansing.common.query.QueryResult;
+import io.datacleansing.common.rest.Utils;
 import io.datacleansing.DataStore;
 import io.datacleansing.repo.representations.Tag;
 
@@ -45,6 +46,10 @@ public class TagDAO {
 			return result.getResultList().get(0);
 		else
 			return null;
+	}
+
+	public Tag get(String repoId, String resId, String tagId) {
+		return get(Utils.generateURI(repoId, resId), tagId);
 	}
 
 }

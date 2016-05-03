@@ -99,6 +99,18 @@ public class ServiceController {
 		return new ResponseEntity<Service>(model, HttpStatus.OK);
 	}
 
+	@RequestMapping( value = SERVICE_URI + "/api", method = RequestMethod.POST)
+	public ResponseEntity<String> executeService(
+			@PathVariable String repoId,
+			@PathVariable String svcId,
+			@RequestBody String inputData,
+			HttpServletRequest request) {
+
+		Service svc = svcDAO.get(repoId, svcId);
+		String outputData = inputData + "\n" + svc.getJobURI();
+		return new ResponseEntity<String>(outputData, HttpStatus.OK);
+	}
+
 	@RequestMapping( value = SERVICE_URI, method = RequestMethod.DELETE )
 	public ResponseEntity<String> deleteModel(
 			HttpServletRequest request,

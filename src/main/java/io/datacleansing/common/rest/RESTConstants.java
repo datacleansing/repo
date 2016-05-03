@@ -14,9 +14,10 @@ public class RESTConstants {
 	public static final String REPOSITORIES_URI = "/repository";
 	public static final String REPOSITORY_URI = REPOSITORIES_URI + "/{repoId}";
 	public static final String MODELS_URI = REPOSITORY_URI + "/models";
+	public static final String MODELJOBS_URI = REPOSITORY_URI + "/modelJobs";
 
 	
-	public static final String SERVICES_URI = "/repository";
+	public static final String SERVICES_URI = "/service";
 	public static final String SERVICE_REPO_URI = SERVICES_URI + "/{repoId}";
 
 	public static final String TAG_URI = "/{tagId}";
