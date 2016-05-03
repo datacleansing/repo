@@ -9,17 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import io.datacleansing.common.query.PagingParameters;
 import io.datacleansing.common.query.QueryOptions;
 import io.datacleansing.common.query.QueryResult;
 import io.datacleansing.common.Constants;
+import io.datacleansing.common.Flow;
 import io.datacleansing.common.rest.RESTConstants;
 import io.datacleansing.common.rest.Utils;
 import io.datacleansing.common.rest.representations.ResourceCollection;
@@ -27,6 +30,7 @@ import io.datacleansing.service.dao.ServiceDAO;
 import io.datacleansing.service.representations.Service;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value= RESTConstants.SERVICE_REPO_URI)
 public class ServiceController {
 	public static final String SERVICE_URI = "/{svcId}";
@@ -35,6 +39,8 @@ public class ServiceController {
 
 	@Autowired
 	ServiceDAO svcDAO;
+	
+	RestTemplate restTemplate = new RestTemplate();
 
 	@RequestMapping( method = RequestMethod.POST )
 	public ResponseEntity<Service> createService(
@@ -107,8 +113,13 @@ public class ServiceController {
 			HttpServletRequest request) {
 
 		Service svc = svcDAO.get(repoId, svcId);
-		String outputData = inputData + "\n" + svc.getJobURI();
-		return new ResponseEntity<String>(outputData, HttpStatus.OK);
+		Flow flow = new Flow();
+		flow.setData(inputData);
+		flow.setJob(svc.getJobURI());
+
+		String engine = System.getenv().get("DMCLOUD_ENGINE_HOST") + "/engine";
+		ResponseEntity<String> outputData = restTemplate.postForEntity(engine, flow, String.class);
+		return new ResponseEntity<String>(outputData.getBody(), HttpStatus.OK);
 	}
 
 	@RequestMapping( value = SERVICE_URI, method = RequestMethod.DELETE )
