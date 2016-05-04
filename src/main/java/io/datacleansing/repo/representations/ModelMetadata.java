@@ -15,6 +15,7 @@ public class ModelMetadata extends RepoMetadata{
 	private String id;
 	private Boolean isPrivate;
 	private String description;
+	private String algorithm;
 	private String domain;
 	private String datatype;
 	private String locale;
@@ -91,5 +92,13 @@ public class ModelMetadata extends RepoMetadata{
 	}
 	public void setKeywords(Set<String> keywords) {
 		this.keywords = keywords;
+	}
+
+	@DynamoDBAttribute(attributeName="Algorithm")
+	public String getAlgorithm() {
+		return algorithm;
+	}
+	public void setAlgorithm(String algorithm) {
+		this.algorithm = algorithm;
 	}
 }

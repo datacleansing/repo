@@ -32,6 +32,9 @@ public class RESTConstants {
 	public static final String REQUEST_PARAM_FILTER = "filter";
 	public static final String APPLICATION_ZIP_VALUE = "application/zip";
 
+
+	public static final String SERVICE_JSON_VALUE = "application/vnd.datacleansing.service+json";
+	
 	public static final HttpHeaders APPLICATION_JSON_HEADER = immutableHeaders(MediaType.APPLICATION_JSON);
 	public static final MediaType COLLECTION_JSON = MediaType
 			.valueOf(ResourceCollection.MEDIA_TYPE_JSON_VALUE);
@@ -40,6 +43,9 @@ public class RESTConstants {
 	public static final HttpHeaders TEXT_PLAIN_HEADER = immutableHeaders(MediaType.TEXT_PLAIN);
 	public static final HttpHeaders ZIP_HEADER = immutableHeaders(MediaType
 			.valueOf(APPLICATION_ZIP_VALUE));
+
+	public static final String REQUEST_PARAM_TYPE = "type";
+	public static final String REQUEST_PARAM_TYPE_COUNT = "count";
 
 	public static HttpHeaders mutable(HttpHeaders headers) {
 		HttpHeaders m = new HttpHeaders();
